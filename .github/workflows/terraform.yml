@@ -41,11 +41,10 @@ jobs:
 
       - uses: actions/get-aws-credentials@v1
         with:
-          assume_role: {
           ROLE_ARN: "arn:aws:iam::156416945165:role/GithubActionRole"
           ROLE_SESSION_NAME: ecrsessionrole
           REGION: "us-west-2"
-        }
+        
       - name: print assume role
         run: aws sts get-caller-identity
       
