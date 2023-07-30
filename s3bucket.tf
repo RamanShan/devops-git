@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "foo" {
   bucket = var.s3bucketname
   acl    = "private"
   tags = {
-    Name = "Terraform State Bucket"
+    Name = "Terraform Bucket"
   }
 }
   
