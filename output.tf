@@ -1,3 +1,3 @@
-output "ecrname"{
-    value = aws_ecr_repository.foo.name
+output "s3bucketname" {
+  value = aws_s3_bucket.foo.bucket
 }
