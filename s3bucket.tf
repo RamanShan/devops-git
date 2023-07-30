@@ -1,4 +1,9 @@
-resource "aws_s3_bucket" "my_S3_bucket" {
-  bucket = var.s3bucketname
-
+resource "aws_s3_bucket" "foo" {
+  bucket = "terraformtfstatebucket01"
+  #bucket = var.s3bucketname
+  acl    = "private"
+  tags = {
+    Name = "Terraform State Bucket"
+  }
 }
+  
