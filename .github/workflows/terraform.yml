@@ -50,7 +50,7 @@ jobs:
       - name: Run a multi-line script
         run:
           terraform init -backend-config="bucket=terraformtfstatebucket01" -backend-config="key=ecr/terraform/${{ inputs.s3bucketname }}" -reconfigure
-          terraform plan -out=tfplan -var "s3bucketname=${{ inputs.s3bucketname }}" -var-file="${{inputs}}.tfvars"
+          terraform plan -out=tfplan -var "s3bucketname=${{ inputs.s3bucketname }}" -var-file="${{ inputs.environment }}.tfvars"
           terraform apply "tfplan"
 
 
