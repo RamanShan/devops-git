@@ -40,14 +40,13 @@ jobs:
       - name: print assume role
         run: aws sts get-caller-identity
 
-      - name: Initialize Terraform
-        working-directory: ./temp_dir
-        run: terraform init -backend-config="bucket=terraformtfstatebucket01" -backend-config="key=/terraform/${{ inputs.s3bucketname }}" -reconfigure
-  
       - name: Create temp directory and copy files
         run: |
           mkdir temp_dir
           cp -r ./ ./temp_dir
+          cd ./temp_dir
+          terraform init -backend-config="bucket=terraformtfstatebucket01" -backend-config="key=/terraform/${{ inputs.s3bucketname }}"
+          cd ..
 
       - name: Terraform Plan
         working-directory: ./temp_dir
