@@ -8,7 +8,7 @@ terraform {
   }
   backend "s3" {
     bucket = "terraformtfstatebucket01"
-    #key    = "ecr/terraform/${var.s3bucketname}"
+    key    = "${var.s3_bucketname}/terraform/${var.s3_bucketname}"
     region = "us-west-2"
   }
     
