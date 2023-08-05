@@ -41,7 +41,7 @@ jobs:
         run: aws sts get-caller-identity
         
       - name: Copy prod.tfvars to GitHub runner
-        run: cp prod.tfvars $GITHUB_WORKSPACE
+        run: cp prod/prod.tfvars $GITHUB_WORKSPACE
         
       - name: Run Terraform
         run: |
