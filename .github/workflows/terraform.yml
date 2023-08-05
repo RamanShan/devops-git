@@ -39,7 +39,10 @@ jobs:
         
       - name: print assume role
         run: aws sts get-caller-identity
-
+        
+      - name: Copy prod.tfvars to GitHub runner
+        run: cp prod.tfvars $GITHUB_WORKSPACE
+        
       - name: Run Terraform
         run: |
           terraform init -backend-config="bucket=terraformtfstatebucket01" -backend-config="key=terraform/${{ inputs.s3bucketname }}" -reconfigure
