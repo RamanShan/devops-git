@@ -41,7 +41,6 @@ jobs:
       - name: print assume role
         run: aws sts get-caller-identity
       
-Commit correcttion for 'YAML'
       # Runs a single command using the runners shell
       # - name: Get Aws Credentials
       #   run: echo Hello, world!
@@ -49,8 +48,8 @@ Commit correcttion for 'YAML'
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run:
-          terraform init -backend-config="bucket=terraformtfstatebucket01" -backend-config="key=${{ inputs.s3_bucketname }}/terraform/${{ inputs.s3_bucketname }}" -reconfigure
-          terraform plan -out=tfplan -var "s3_bucketname=${{ inputs.s3_bucketname }}" -var-file="$prod.tfvars"
+          terraform init -backend-config="bucket=terraformtfstatebucket01" -backend-config="key=/terraform/${{ inputs.s3_bucketname }}" -reconfigure
+          terraform plan -out=tfplan -var "s3_bucketname=${{ inputs.s3_bucketname }}" -var-file="prod.tfvars"
           terraform apply "tfplan"
 
 
