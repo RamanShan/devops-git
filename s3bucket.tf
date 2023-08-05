@@ -1,5 +1,4 @@
 resource "aws_s3_bucket" "foo" {
-  #bucket = "terraformtfstatebucket01"
   bucket = var.s3_bucketname
 
   server_side_encryption_configuration {
@@ -10,15 +9,26 @@ resource "aws_s3_bucket" "foo" {
     }
   }
 
+  acl = "private"
+
+  tags = {
+    Name = "Terraform Bucket"
+  }
+}
+
+resource "aws_iam_policy" "bucket_policy" {
+  name        = "S3BucketPolicy"
+  description = "Policy for S3 bucket access"
+
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Sid = "AllowPublicRead",
-        Effect = "Deny",
-        Principal = "*",
-        Action = "s3:GetObject",
-        Resource = aws_s3_bucket.foo.arn,
+        Sid       = "AllowPublicRead"
+        Effect    = "Deny"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = aws_s3_bucket.foo.arn
         Condition = {
           Bool = {
             "aws:SecureTransport": "false"
@@ -27,11 +37,4 @@ resource "aws_s3_bucket" "foo" {
       }
     ]
   })
-
-  tags = {
-    Name = "Pros_S3_Bucket"
-  }
-
-  acl    = "private"
-
- }  
+}
