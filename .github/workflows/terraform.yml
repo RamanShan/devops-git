@@ -40,32 +40,11 @@ jobs:
       - name: print assume role
         run: aws sts get-caller-identity
 
-      - name: Create temp directory and copy files
+      - name: Run Terraform
         run: |
-          mkdir temp_dir
-          cp -r ./ ./temp_dir
-          cd ./temp_dir
-          terraform init -backend-config="bucket=terraformtfstatebucket01" -backend-config="key=/terraform/${{ inputs.s3bucketname }}"
-          cd ..
-
-      - name: Terraform Plan
-        working-directory: ./temp_dir
-        run: terraform plan -out=tfplan -var="s3_bucketname=${{ inputs.s3bucketname }}" -var-file="prod.tfvars"
-  
-      - name: Terraform Apply
-        working-directory: ./temp_dir
-        run: terraform apply -auto-approve tfplan
-      
-      # Runs a single command using the runners shell
-      # - name: Get Aws Credentials
-      #   run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      # - name: Run a multi-line script
-      #   run:
-      #     terraform init -backend-config="bucket=terraformtfstatebucket01" -backend-config="key=/terraform/${{ inputs.s3bucketname }}" -reconfigure
-      #     terraform plan -out=tfplan -var "s3_bucketname=${{ inputs.s3bucketname }}" -var-file="prod.tfvars"
-      #     terraform apply -auto-approve tfplan
+          terraform init -backend-config="bucket=terraformtfstatebucket01" -backend-config="key=terraform/${{ inputs.s3bucketname }}" -reconfigure
+          terraform plan -out=tfplan -var "s3_bucketname=${{ inputs.s3bucketname }}" -var-file="prod.tfvars"
+          terraform apply -auto-approve tfplan
 
 
           
