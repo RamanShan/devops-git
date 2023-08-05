@@ -33,7 +33,5 @@ resource "aws_s3_bucket" "foo" {
   }
 
   acl    = "private"
-  tags = {
-    Name = "Terraform Bucket"
-  }
+
  }  
