@@ -1,5 +1,4 @@
 terraform {
-  required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 5.0"
@@ -8,6 +7,7 @@ terraform {
   }
   backend "s3" {
     bucket = "terraformtfstatebucket01"
+  required_providers {
     #key    = "${var.s3_bucketname}/terraform/${var.s3_bucketname}"
     #key    = "${var.s3_bucketname}/terraform/terraform.tfstate"
     key     = "terraform/{{ var.s3_bucketname }}"

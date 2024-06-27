@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "foo" {
+resource "aws_s3_bucket_server_side_encryption_configuration" "foo" {
   bucket = var.s3_bucketname
 
   acl = "private"
